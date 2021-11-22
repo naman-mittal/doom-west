@@ -96,7 +96,7 @@ AnimatorController:
   - m_Name: DeathType_int
     m_Type: 3
     m_DefaultFloat: 0
-    m_DefaultInt: 2
+    m_DefaultInt: 1
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
   - m_Name: Body_Vertical_f
