@@ -41,12 +41,12 @@ public class PlayerController : MonoBehaviour
 
         if (!isAlive) return;
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetMouseButtonDown(0))
         {
             FireBullet();
             playerAnim.SetBool("Shoot_b", true);
         }
-        else if(Input.GetKeyUp(KeyCode.Space))
+        else if(Input.GetMouseButtonUp(0))
         {
             playerAnim.SetBool("Shoot_b", false);
         }

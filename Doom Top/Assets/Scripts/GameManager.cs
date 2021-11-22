@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,16 +12,19 @@ public class GameManager : MonoBehaviour
     private float spawnInterval = 2;
 
     private int wave = 1;
+
+    public TextMeshProUGUI enemiesLeftText;
     // Start is called before the first frame update
     void Start()
     {
-        
+        enemiesLeftText.text = "Enemies Left: " + wave;
     }
 
     // Update is called once per frame
     void Update()
     {
         int count = GameObject.FindObjectsOfType<Enemy>().Length;
+        enemiesLeftText.text = "Enemies Left: " + count;
 
         if (count == 0)
         {
