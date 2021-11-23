@@ -33,6 +33,8 @@ public class Enemy : MonoBehaviour
 
         gunScript = gun.GetComponent<Gun>();
 
+        gunScript.bullet.GetComponent<Bullet>().firedBy = "enemy";
+
         InvokeRepeating("FireBullet", 2, fireRate);
     }
 
@@ -62,7 +64,7 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Bullet"))
+        if (other.gameObject.CompareTag("Bullet") && isAlive && other.gameObject.GetComponent<Bullet>().firedBy.Equals("player"))
         {
             Destroy(gunScript.gameObject);
             Destroy(other.gameObject);
@@ -79,7 +81,9 @@ public class Enemy : MonoBehaviour
 
         enemyAnim.SetBool("Death_b", true);
 
-        enemyAnim.SetInteger("DeathType_Int", Random.Range(1, 3));
+        enemyAnim.SetInteger("DeathType_int", Random.Range(1, 3));
+
+        GameObject.Find("Game Manager").GetComponent<GameManager>().enemyKilled();
 
         Destroy(gameObject, 2);
     }
@@ -90,7 +94,8 @@ public class Enemy : MonoBehaviour
         Debug.Log("Shooting");
         if (isAlive)
         {
-            Instantiate(gunScript.bullet, gunScript.firePosition.position, Quaternion.Euler(transform.localEulerAngles));
+            GameObject bullet = Instantiate(gunScript.bullet, gunScript.firePosition.position, transform.rotation);
+            bullet.GetComponent<Bullet>().firedBy = "enemy";
 
         }
        
