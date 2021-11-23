@@ -7,12 +7,13 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float gap = 5.0f;
     [SerializeField] private float fireRate = 5.0f;
+    [SerializeField] private int point = 10;
 
     public GameObject gunPrefab;
     Vector3 gunPosition = new Vector3(0,1.5f,1);
     private Gun gunScript;
 
-    private PlayerController player;
+    private PlayerController player = null;
     private Rigidbody enemyRb;
     private Animator enemyAnim;
 
@@ -21,7 +22,7 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.Find("Player").GetComponent<PlayerController>();
+       player = GameObject.Find("Player").GetComponent<PlayerController>();
         enemyRb = GetComponent<Rigidbody>()                 ;
         enemyAnim = GetComponent<Animator>();
 
@@ -44,6 +45,8 @@ public class Enemy : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (player == null) return;
+
         if (!isAlive || !player.isAlive)
         {
             return;
@@ -83,7 +86,7 @@ public class Enemy : MonoBehaviour
 
         enemyAnim.SetInteger("DeathType_int", Random.Range(1, 3));
 
-        GameObject.Find("Game Manager").GetComponent<GameManager>().enemyKilled();
+        GameObject.Find("Game Manager").GetComponent<GameManager>().enemyKilled(point);
 
         Destroy(gameObject, 2);
     }

@@ -5,8 +5,13 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject playerPrefab;
     public List<GameObject> enemies;
     public List<GameObject> powerups;
+    public GameObject titleScreen;
+    public GameObject statsScreen;
+    public GameObject gameOverScreen;
+
     private float xSpawnRange = 10;
     private float zPosSpawnRange = 12;
     private float zNegSpawnRange = 20;
@@ -17,13 +22,56 @@ public class GameManager : MonoBehaviour
     private int enemyCount;
 
     public TextMeshProUGUI enemiesLeftText;
+    public TextMeshProUGUI livesText;
+    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI finalScoreText;
+
+    public int score;
+    public int lives;
+
+    private bool isGameOver;
+
+    private Vector3 startPos;
+    private GameObject enemyParent;
+    private GameObject powerupParent;
+
+
+    public void StartGame()
+    {
+        GameObject player = Instantiate(playerPrefab, Vector3.zero, playerPrefab.transform.rotation);
+        player.name = "Player";
+        GameObject.Find("Main Camera").GetComponent<FollowPlayer>().setPlayerRef(player.GetComponent<PlayerController>());
+        enemyParent = new GameObject();
+        enemyParent.name = "Enemy Parent";
+        powerupParent = new GameObject();
+        powerupParent.name = "Powerup Parent";
+
+        isGameOver = false;
+        titleScreen.SetActive(false);
+        statsScreen.SetActive(true);
+        wave = 1;
+        score = 0;
+        lives = 3;
+        scoreText.text = "Score: " + score;
+        livesText.text = "Lives: " + lives;
+        enemiesLeftText.text = "Enemies Left: " + wave;
+        enemyCount = wave;
+        StartCoroutine(SpawnEnemy(wave));
+        SpawnPowerup();
+
+
+    }
+
+    public void RestartGame()
+    {
+        gameOverScreen.SetActive(false);
+        titleScreen.SetActive(true);
+
+    }
     // Start is called before the first frame update
     void Start()
     {
-        enemiesLeftText.text = "Enemies Left: " + wave;
-        enemyCount = wave;
-       StartCoroutine(SpawnEnemy(wave));
-        SpawnPowerup();
+       
     }
 
     // Update is called once per frame
@@ -34,11 +82,13 @@ public class GameManager : MonoBehaviour
 
     IEnumerator SpawnEnemy(int wave)
     {
-        for(int i = 0; i < wave; i++)
+        yield return new WaitForSeconds(2);
+        for(int i = 0; i < wave && !isGameOver; i++)
         {
             int index = Random.Range(0, enemies.Count);
 
-            Instantiate(enemies[index], RandomPosition(enemies[index].transform.position.y), enemies[index].transform.rotation);
+           GameObject enemy = Instantiate(enemies[index], RandomPosition(enemies[index].transform.position.y), enemies[index].transform.rotation);
+            enemy.transform.SetParent(enemyParent.transform);
             yield return new WaitForSeconds(spawnDelay);
         }
         
@@ -49,8 +99,9 @@ public class GameManager : MonoBehaviour
         
             int index = Random.Range(0, powerups.Count);
 
-            Instantiate(powerups[index], RandomPosition(powerups[index].transform.position.y), powerups[index].transform.rotation);
-        
+            GameObject powerup =  Instantiate(powerups[index], RandomPosition(powerups[index].transform.position.y), powerups[index].transform.rotation);
+
+        powerup.transform.SetParent(powerupParent.transform);
 
     }
 
@@ -59,8 +110,10 @@ public class GameManager : MonoBehaviour
         return new Vector3(Random.Range(-xSpawnRange,xSpawnRange),y, Random.Range(-zNegSpawnRange, zPosSpawnRange));
     }
 
-    public void enemyKilled()
+    public void enemyKilled(int point)
     {
+        score += point;
+        scoreText.text = "Score: " + score;
         enemyCount--;
         enemiesLeftText.text = "Enemies Left: " + enemyCount;
         if (enemyCount == 0)
@@ -73,4 +126,32 @@ public class GameManager : MonoBehaviour
             enemiesLeftText.text = "Enemies Left: " + enemyCount;
         }
     }
+
+    public void playerKilled()
+    {
+        lives--;
+        livesText.text = "Lives: " + lives;
+        //Instantiate(player, startPos, player.transform.rotation);
+
+        if (lives == 0)
+        {
+            GameOver();
+        }
+
+    }
+
+    
+
+    void GameOver()
+    {
+        Destroy(GameObject.Find("Player"));
+        Destroy(powerupParent);
+        Destroy(enemyParent);
+        isGameOver = true;
+        gameOverScreen.SetActive(true);
+        statsScreen.SetActive(false);
+
+        finalScoreText.text = "Your Score: " + score;
+    }
+
 }

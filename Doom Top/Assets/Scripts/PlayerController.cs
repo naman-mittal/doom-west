@@ -16,7 +16,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody playerRb;
     private Animator playerAnim;
 
-    private Vector3 inputVector;
+    private Vector3 startPos;
+    private Quaternion startRot;
 
     private float yRot;
 
@@ -32,6 +33,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         isAlive = true;
+        startPos = transform.position;
+        startRot = transform.rotation;
         playerRb = GetComponent<Rigidbody>();
         playerAnim = GetComponent<Animator>();
         playerAnim.SetInteger("WeaponType_int", 1);
@@ -118,7 +121,26 @@ public class PlayerController : MonoBehaviour
 
         playerAnim.SetInteger("DeathType_int", Random.Range(1, 3));
 
-        Destroy(gameObject, 2);
+        //Destroy(gameObject, 2);
+        Invoke("Reset", 2);
+    }
+
+    private void Reset()
+    {
+        GameObject.Find("Game Manager").GetComponent<GameManager>().playerKilled();
+
+        isAlive = true;
+
+        transform.position = startPos;
+        transform.rotation = startRot;
+        playerAnim.Rebind();
+
+        playerAnim.SetInteger("WeaponType_int", 1);
+        GameObject gun = Instantiate(gunPrefab, startPos + gunPosition, startRot);
+
+        gun.transform.SetParent(transform);
+
+        gunScript = gun.GetComponent<Gun>();
     }
 
     void FireBullet()
