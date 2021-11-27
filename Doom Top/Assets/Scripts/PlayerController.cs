@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public GameObject gunPrefab;
+    private GameObject gunPrefab;
     public GameObject powerIndicator;
     Vector3 gunPosition = new Vector3(0, 1.5f, 1);
     private Gun gunScript;
@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gunPrefab = MainManager.Manager.selectedGun;
         isAlive = true;
         startPos = transform.position;
         startRot = transform.rotation;
