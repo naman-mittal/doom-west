@@ -654,14 +654,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b517ba344e6e73c4094073b2feeef119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunPrefab: {fileID: 2099519696750245542, guid: 9010c4f0c1484dd49863358119ca4e93,
+  gunPrefab: {fileID: 3100289310294203091, guid: 62fe50204e2a4ab46aea8c9db41420fd,
     type: 3}
   powerIndicator: {fileID: 5588315997337981360}
   speed: 5
   rotateSpeed: 3
   isAlive: 1
   lives: 3
-  canDie: 0
+  canDie: 1
   scatterShot: 0
   hasPowerup: 0
 --- !u!1 &5587734459844726111

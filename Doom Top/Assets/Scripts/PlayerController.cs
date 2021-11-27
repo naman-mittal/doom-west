@@ -54,7 +54,8 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            FireBullet();
+            //FireBullet();
+            gunScript.Fire("player");
             playerAnim.SetBool("Shoot_b", true);
         }
         else if(Input.GetMouseButtonUp(0))

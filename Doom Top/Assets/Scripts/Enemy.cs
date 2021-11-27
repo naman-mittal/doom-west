@@ -36,12 +36,20 @@ public class Enemy : MonoBehaviour
 
         gunScript.bullet.GetComponent<Bullet>().firedBy = "enemy";
 
-        InvokeRepeating("FireBullet", 2, fireRate);
+        StartCoroutine(FireGun());
+        
     }
 
     // Update is called once per frame
 
-    
+    IEnumerator FireGun()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(2);
+            gunScript.Fire("enemy");
+        }
+    }
 
     void FixedUpdate()
     {

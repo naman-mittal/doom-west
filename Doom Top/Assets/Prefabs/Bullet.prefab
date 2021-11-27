@@ -12,10 +12,9 @@ GameObject:
   - component: {fileID: 4686041403700851373}
   - component: {fileID: 5256091411305206694}
   - component: {fileID: 7283112525909516180}
-  - component: {fileID: 8475775790157161757}
   - component: {fileID: 4886189548965177363}
-  - component: {fileID: -8172487805862212455}
   - component: {fileID: 8133023653335853437}
+  - component: {fileID: 4287387515927362064}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Bullet
@@ -97,20 +96,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8475775790157161757
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5725212493599531128}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f44ac63ca8c58044893041da8e4ea6c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 20
-  firedBy: 
 --- !u!114 &4886189548965177363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,20 +109,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 4
---- !u!114 &-8172487805862212455
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5725212493599531128}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f44ac63ca8c58044893041da8e4ea6c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 30
-  firedBy: 
 --- !u!54 &8133023653335853437
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -154,3 +125,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &4287387515927362064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5725212493599531128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f44ac63ca8c58044893041da8e4ea6c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 30
+  firedBy: 

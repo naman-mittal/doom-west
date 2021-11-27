@@ -451,7 +451,7 @@ MonoBehaviour:
   gap: 15
   fireRate: 3
   point: 15
-  gunPrefab: {fileID: 2099519696750245542, guid: 9010c4f0c1484dd49863358119ca4e93,
+  gunPrefab: {fileID: 3273404233025318744, guid: 52eff675ae6cc0c4aa2a3dbeb38e4706,
     type: 3}
 --- !u!1 &1264304168476976515
 GameObject:

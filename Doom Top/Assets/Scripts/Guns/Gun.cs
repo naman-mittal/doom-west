@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gun : MonoBehaviour
+public abstract class Gun : MonoBehaviour
 {
     public GameObject bullet;
     public Transform firePosition;
+    public int bulletCount = 1;
+    public float fireRate = 1;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,8 +20,6 @@ public class Gun : MonoBehaviour
         
     }
 
-    public void fire()
-    {
-        Instantiate(bullet, transform.position,bullet.transform.rotation);
-    }
+    public abstract void Fire(string firedBy);
+
 }
