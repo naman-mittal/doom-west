@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI enemiesLeftText;
     public TextMeshProUGUI livesText;
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI WaveText;
     public TextMeshProUGUI finalScoreText;
 
     public int score;
@@ -54,6 +55,7 @@ public class GameManager : MonoBehaviour
         lives = 3;
         scoreText.text = "Score: " + score;
         livesText.text = "Lives: " + lives;
+        WaveText.text = "Wave: " + wave;
         enemiesLeftText.text = "Enemies Left: " + wave;
         enemyCount = wave;
         StartCoroutine(SpawnEnemy(wave));
@@ -124,6 +126,7 @@ public class GameManager : MonoBehaviour
            
             enemyCount = wave;
             enemiesLeftText.text = "Enemies Left: " + enemyCount;
+            WaveText.text = "Wave: " + wave;
         }
     }
 
@@ -137,10 +140,25 @@ public class GameManager : MonoBehaviour
         {
             GameOver();
         }
+        else
+        {
+            RestartWave();
+        }
 
     }
 
-    
+    void RestartWave()
+    {
+        StopAllCoroutines();
+        Destroy(enemyParent);
+        enemyParent = new GameObject();
+        enemyParent.name = "Enemy Parent";
+        powerupParent = new GameObject();
+        powerupParent.name = "Powerup Parent";
+        enemyCount = wave;
+        enemiesLeftText.text = "Enemies Left: " + enemyCount;
+        StartCoroutine(SpawnEnemy(wave));
+    }
 
     void GameOver()
     {
