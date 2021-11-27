@@ -8,6 +8,7 @@ public abstract class Gun : MonoBehaviour
     public Transform firePosition;
     public int bulletCount = 1;
     public float fireRate = 1;
+    public float fireDistance = 1;
     // Start is called before the first frame update
     void Start()
     {

@@ -15,7 +15,9 @@ public class Assault : Gun
         for(int i = 0; i < 3; i++)
         {
             GameObject bg = Instantiate(bullet, firePosition.position, transform.rotation);
-            bg.GetComponent<Bullet>().firedBy = firedBy;
+            Bullet b = bg.GetComponent<Bullet>();
+            b.firedBy = firedBy;
+            Destroy(bg, fireDistance / b.speed);
             yield return new WaitForSeconds(0.2f);
         }
     } 

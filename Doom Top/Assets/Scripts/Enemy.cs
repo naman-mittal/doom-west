@@ -34,6 +34,8 @@ public class Enemy : MonoBehaviour
 
         gunScript = gun.GetComponent<Gun>();
 
+        gap = gunScript.fireDistance;
+
         gunScript.bullet.GetComponent<Bullet>().firedBy = "enemy";
 
         StartCoroutine(FireGun());
@@ -47,7 +49,11 @@ public class Enemy : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(2);
-            gunScript.Fire("enemy");
+            if (isAlive)
+            {
+                gunScript.Fire("enemy");
+            }
+            
         }
     }
 

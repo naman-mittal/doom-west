@@ -127,3 +127,4 @@ MonoBehaviour:
   firePosition: {fileID: 1289040887584296224}
   bulletCount: 1
   fireRate: 1
+  fireDistance: 10

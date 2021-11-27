@@ -8,6 +8,8 @@ public class Pistol : Gun
     public override void Fire(string firedBy)
     {
         GameObject bg = Instantiate(bullet, firePosition.position, transform.rotation);
-        bg.GetComponent<Bullet>().firedBy = firedBy;
+        Bullet b = bg.GetComponent<Bullet>();
+        b.firedBy = firedBy;
+        Destroy(bg, fireDistance / b.speed);
     }
 }
