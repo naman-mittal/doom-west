@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class GunPicker : MonoBehaviour
 {
     public List<GameObject> guns;
+    public GameObject lockView;
+    public TextMeshProUGUI message;
+    public Button startButton;
 
     int selectedIndex = 0;
     void Start()
@@ -49,6 +53,16 @@ public class GunPicker : MonoBehaviour
     void changeGun(int index)
     {
         GameObject gun = guns[index];
+        if (IsUnlocked(gun))
+        {
+            lockView.SetActive(false);
+            startButton.interactable = true;
+        }
+        else
+        {
+            lockView.SetActive(true);
+            startButton.interactable = false;
+        }
         MainManager.Manager.selectedGun = gun;
         transform.Find("Gun").Find("name").GetComponent<TextMeshProUGUI>().text = gun.name;
         Transform child = transform.Find("Gun").Find("GunParent").GetChild(0);
@@ -56,5 +70,25 @@ public class GunPicker : MonoBehaviour
         go.layer = 5;
         go.transform.SetParent(transform.Find("Gun").Find("GunParent"));
         Destroy(child.gameObject);
+    }
+
+    bool IsUnlocked(GameObject gun)
+    {
+        message.text = "Need highscore > ";
+
+        int highscore = MainManager.Manager.highscore;
+        switch (gun.name.ToLower())
+        {
+            case "assault":
+                message.text += 20;
+                if (highscore >= 20) { return true; }
+                break;
+            case "shotgun":
+                message.text += 40;
+                if (highscore >= 40) {return true; }
+                break;
+            default: return true;
+        }
+        return false;
     }
 }

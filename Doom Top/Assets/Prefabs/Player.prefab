@@ -659,7 +659,7 @@ MonoBehaviour:
   rotateSpeed: 3
   isAlive: 1
   lives: 3
-  canDie: 1
+  canDie: 0
   scatterShot: 0
   hasPowerup: 0
 --- !u!1 &5587734459844726111
