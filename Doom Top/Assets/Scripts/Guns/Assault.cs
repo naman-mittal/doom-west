@@ -4,10 +4,17 @@ using UnityEngine;
 
 public class Assault : Gun
 {
+    private bool canFire = true;
     // Start is called before the first frame update
     public override void Fire(string firedBy)
     {
-        StartCoroutine(FireX(firedBy));
+        if (canFire)
+        {
+            canFire = false;
+            StartCoroutine(FireX(firedBy));
+            StartCoroutine(Fired());
+        }
+        
     }
 
     private IEnumerator FireX(string firedBy)
@@ -18,7 +25,14 @@ public class Assault : Gun
             Bullet b = bg.GetComponent<Bullet>();
             b.firedBy = firedBy;
             Destroy(bg, fireDistance / b.speed);
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.1f);
         }
-    } 
+    }
+
+    private IEnumerator Fired()
+    {
+        yield return new WaitForSeconds(fireRate);
+        canFire = true;
+
+    }
 }

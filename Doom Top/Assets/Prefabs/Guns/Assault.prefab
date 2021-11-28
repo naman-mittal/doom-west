@@ -126,5 +126,5 @@ MonoBehaviour:
   bullet: {fileID: 5725212493599531128, guid: 6f735bef0bff4234b844aa5e4d4d2675, type: 3}
   firePosition: {fileID: 2866287597361890728}
   bulletCount: 1
-  fireRate: 1
+  fireRate: 0.8
   fireDistance: 10
