@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private GameObject gunPrefab;
+    public GameObject gunPrefab;
     public GameObject powerIndicator;
     Vector3 gunPosition = new Vector3(0, 1.5f, 1);
-    private Gun gunScript;
+    public Gun gun;
 
     
     private float horizontalInput;
@@ -32,7 +32,11 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gunPrefab = MainManager.Manager.selectedGun;
+        if(MainManager.Manager != null)
+        {
+            gunPrefab = MainManager.Manager.selectedGun;
+        }
+        
         isAlive = true;
         startPos = transform.position;
         startRot = transform.rotation;
@@ -40,11 +44,11 @@ public class PlayerController : MonoBehaviour
         playerAnim = GetComponent<Animator>();
         playerAnim.SetInteger("WeaponType_int", 1);
 
-        GameObject gun = Instantiate(gunPrefab, transform.position + gunPosition, transform.rotation);
+        GameObject gunGO = Instantiate(gunPrefab, transform.position + gunPosition, transform.rotation);
 
-        gun.transform.SetParent(transform);
+        gunGO.transform.SetParent(transform);
 
-        gunScript = gun.GetComponent<Gun>();
+        gun = gunGO.GetComponent<Gun>();
 
     }
 
@@ -56,17 +60,12 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             //FireBullet();
-            gunScript.Fire("player");
+            gun.Fire("player");
             playerAnim.SetBool("Shoot_b", true);
         }
         else if(Input.GetMouseButtonUp(0))
         {
             playerAnim.SetBool("Shoot_b", false);
-        }
-
-        if (Input.GetMouseButtonDown(1))
-        {
-            Teleport();
         }
     }
     // Update is called once per frame
@@ -107,7 +106,7 @@ public class PlayerController : MonoBehaviour
         {
             
             Destroy(other.gameObject);
-            Destroy(gunScript.gameObject);
+            Destroy(gun.gameObject);
             Die();
         }
     }
@@ -138,42 +137,11 @@ public class PlayerController : MonoBehaviour
         playerAnim.Rebind();
 
         playerAnim.SetInteger("WeaponType_int", 1);
-        GameObject gun = Instantiate(gunPrefab, startPos + gunPosition, startRot);
+        GameObject gunGO = Instantiate(gunPrefab, startPos + gunPosition, startRot);
 
-        gun.transform.SetParent(transform);
+        gunGO.transform.SetParent(transform);
 
-        gunScript = gun.GetComponent<Gun>();
-    }
-
-    void FireBullet()
-    {
-
-        if (scatterShot)
-        {
-            Debug.Log("Scatter shot");
-            for(int  i = -20; i <= 20; i+=10)
-            {
-                Debug.Log(transform.rotation);
-                Quaternion shotAngle = Quaternion.Euler(new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y + i, transform.localEulerAngles.z));
-                GameObject bullet = Instantiate(gunScript.bullet, gunScript.firePosition.position, shotAngle);
-                bullet.GetComponent<Bullet>().firedBy = "player";
-            }
-        }
-        else
-        {
-            GameObject bullet = Instantiate(gunScript.bullet, gunScript.firePosition.position, transform.rotation);
-            bullet.GetComponent<Bullet>().firedBy = "player";
-        }
-
-      
-    }
-
-
-    void Fire() { 
-    }
-    void Teleport()
-    {
-        transform.position = GameObject.Find("Game Manager").GetComponent<GameManager>().RandomPosition(transform.position.y);
+        gun = gunGO.GetComponent<Gun>();
     }
 
 }

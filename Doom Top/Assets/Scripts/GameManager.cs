@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public GameObject playerPrefab;
     public List<GameObject> enemies;
     public List<GameObject> powerups;
-    public GameObject titleScreen;
+   // public GameObject titleScreen;
     public GameObject statsScreen;
     public GameObject gameOverScreen;
 
@@ -41,6 +42,26 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        
+
+
+    }
+
+    public void RestartGame()
+    {
+        gameOverScreen.SetActive(false);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        //titleScreen.SetActive(true);
+
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
         GameObject player = Instantiate(playerPrefab, Vector3.zero, playerPrefab.transform.rotation);
         player.name = "Player";
         GameObject.Find("Main Camera").GetComponent<FollowPlayer>().setPlayerRef(player.GetComponent<PlayerController>());
@@ -50,7 +71,7 @@ public class GameManager : MonoBehaviour
         powerupParent.name = "Powerup Parent";
 
         isGameOver = false;
-        titleScreen.SetActive(false);
+        //titleScreen.SetActive(false);
         statsScreen.SetActive(true);
         wave = 1;
         score = 0;
@@ -63,20 +84,6 @@ public class GameManager : MonoBehaviour
         enemyCount = wave;
         StartCoroutine(SpawnEnemy(wave));
         SpawnPowerup();
-
-
-    }
-
-    public void RestartGame()
-    {
-        gameOverScreen.SetActive(false);
-        titleScreen.SetActive(true);
-
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-       
     }
 
     // Update is called once per frame

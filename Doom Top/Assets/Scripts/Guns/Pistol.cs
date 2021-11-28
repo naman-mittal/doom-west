@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Pistol : Gun
 {
-    private float timelastFired = 0.0f;
     private bool canFire = true;
     // Start is called before the first frame update
     public override void Fire(string firedBy)
@@ -25,7 +24,7 @@ public class Pistol : Gun
 
     private IEnumerator Fired()
     {
-        yield return new WaitForSeconds(fireRate);
+        yield return new WaitForSeconds(poweredUp ? 0 : fireRate);
         canFire = true;
         
     }

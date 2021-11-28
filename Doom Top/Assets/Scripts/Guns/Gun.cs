@@ -10,6 +10,13 @@ public abstract class Gun : MonoBehaviour
     public float fireRate = 1;
     public float fireDistance = 1;
 
+    [SerializeField] protected bool poweredUp = false;
+
     public abstract void Fire(string firedBy);
+
+    public void SetPoweredup(bool poweredUp)
+    {
+        this.poweredUp = poweredUp;
+    }
 
 }

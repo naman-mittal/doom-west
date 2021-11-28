@@ -18,7 +18,6 @@ public class Enemy : MonoBehaviour
     private Animator enemyAnim;
 
     private bool isAlive = true;
-    private int deathType;
     // Start is called before the first frame update
     void Start()
     {
@@ -105,17 +104,4 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject, 2);
     }
 
-    void FireBullet()
-    {
-        //Vector3 bulletRotation = gun.bullet.transform.localRotation;
-        Debug.Log("Shooting");
-        if (isAlive)
-        {
-            GameObject bullet = Instantiate(gunScript.bullet, gunScript.firePosition.position, transform.rotation);
-            bullet.GetComponent<Bullet>().firedBy = "enemy";
-
-        }
-       
-        //bullet.transform.localEulerAngles = transform.localEulerAngles;
-    }
 }

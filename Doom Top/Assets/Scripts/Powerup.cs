@@ -90,9 +90,9 @@ public class Powerup : MonoBehaviour
     {
         player.hasPowerup = true;
         player.powerIndicator.SetActive(true);
-        player.scatterShot = true;
+        player.gun.SetPoweredup(true);
         yield return new WaitForSeconds(duration);
-        player.scatterShot = false;
+        player.gun.SetPoweredup(false);
         player.powerIndicator.SetActive(false);
         player.hasPowerup = false;
         Destroy(gameObject);

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Shotgun : Gun
 {
     private bool canFire = true;
+    private int rounds = 3;
 
     public override void Fire(string firedBy)
     {
@@ -12,18 +13,40 @@ public class Shotgun : Gun
         {
             canFire = false;
 
-            for (int i = -10; i <= 10; i += 10)
+            if (poweredUp)
             {
-                Quaternion shotAngle = Quaternion.Euler(new Vector3(transform.eulerAngles.x, transform.eulerAngles.y + i, transform.eulerAngles.z));
-                GameObject bg = Instantiate(bullet, firePosition.position, shotAngle);
-                Bullet b = bg.GetComponent<Bullet>();
-                b.firedBy = firedBy;
-                Destroy(bg, fireDistance / b.speed);
+                FireInFanShape(firedBy, rounds * 2);
+            }
+            else
+            {
+                FireInFanShape(firedBy, rounds);
             }
 
             StartCoroutine(Fired());
         }
         
+    }
+
+    private void FireInFanShape(string firedBy,int count)
+    {
+        int yRot = -10 * (count / 2);
+        int angleDifference = 10;
+
+        for (int i = 0; i < (count%2==0 ? count+1 : count); i++)
+        {
+            if (count % 2 == 0 && yRot == 0) {
+
+                yRot += angleDifference;
+                continue; 
+            }
+
+            Quaternion shotAngle = Quaternion.Euler(new Vector3(transform.eulerAngles.x, transform.eulerAngles.y + yRot, transform.eulerAngles.z));
+            GameObject bg = Instantiate(bullet, firePosition.position, shotAngle);
+            Bullet b = bg.GetComponent<Bullet>();
+            b.firedBy = firedBy;
+            Destroy(bg, fireDistance / b.speed);
+            yRot += angleDifference;
+        }
     }
 
     private IEnumerator Fired()

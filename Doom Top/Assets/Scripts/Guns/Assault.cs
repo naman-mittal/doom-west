@@ -5,21 +5,30 @@ using UnityEngine;
 public class Assault : Gun
 {
     private bool canFire = true;
+    private int rounds = 3;
     // Start is called before the first frame update
     public override void Fire(string firedBy)
     {
         if (canFire)
         {
             canFire = false;
-            StartCoroutine(FireX(firedBy));
+            if (poweredUp)
+            {
+                StartCoroutine(FireNRounds(firedBy, rounds * 2));
+            }
+            else
+            {
+                StartCoroutine(FireNRounds(firedBy, rounds));
+            }
+            
             StartCoroutine(Fired());
         }
         
     }
 
-    private IEnumerator FireX(string firedBy)
+    private IEnumerator FireNRounds(string firedBy, int n)
     {
-        for(int i = 0; i < 3; i++)
+        for(int i = 0; i < n; i++)
         {
             GameObject bg = Instantiate(bullet, firePosition.position, transform.rotation);
             Bullet b = bg.GetComponent<Bullet>();

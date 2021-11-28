@@ -11,6 +11,9 @@ public class GunPicker : MonoBehaviour
     public TextMeshProUGUI message;
     public Button startButton;
 
+    private int assaultUnlockPoint = 100;
+    private int shotgunUnlockPoint = 150;
+
     int selectedIndex = 0;
     void Start()
     {
@@ -80,12 +83,12 @@ public class GunPicker : MonoBehaviour
         switch (gun.name.ToLower())
         {
             case "assault":
-                message.text += 20;
-                if (highscore >= 20) { return true; }
+                message.text += assaultUnlockPoint;
+                if (highscore >= assaultUnlockPoint) { return true; }
                 break;
             case "shotgun":
-                message.text += 40;
-                if (highscore >= 40) {return true; }
+                message.text += shotgunUnlockPoint;
+                if (highscore >= shotgunUnlockPoint) {return true; }
                 break;
             default: return true;
         }
