@@ -26,9 +26,11 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI WaveText;
     public TextMeshProUGUI finalScoreText;
+    public TextMeshProUGUI highScoreText;
 
     public int score;
     public int lives;
+    public int highscore;
 
     private bool isGameOver;
 
@@ -53,6 +55,7 @@ public class GameManager : MonoBehaviour
         wave = 1;
         score = 0;
         lives = 3;
+        highscore = MainManager.Manager.highscore;
         scoreText.text = "Score: " + score;
         livesText.text = "Lives: " + lives;
         WaveText.text = "Wave: " + wave;
@@ -140,8 +143,9 @@ public class GameManager : MonoBehaviour
         {
             GameOver();
         }
-        else
+        else if(enemyCount > 0)
         {
+            
             RestartWave();
         }
 
@@ -170,6 +174,15 @@ public class GameManager : MonoBehaviour
         statsScreen.SetActive(false);
 
         finalScoreText.text = "Your Score: " + score;
+
+        if(score > highscore)
+        {
+            highscore = score;
+            MainManager.Manager.highscore = highscore;
+            MainManager.Manager.SaveHighscore();
+        }
+
+        highScoreText.text = "HighScore: " + highscore;
     }
 
 }

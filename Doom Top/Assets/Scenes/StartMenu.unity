@@ -832,6 +832,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedGun: {fileID: 3273404233025318744, guid: 52eff675ae6cc0c4aa2a3dbeb38e4706,
     type: 3}
+  highscore: 0
 --- !u!4 &351977238
 Transform:
   m_ObjectHideFlags: 0
@@ -1909,7 +1910,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1146864603}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 95}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 818504903}
