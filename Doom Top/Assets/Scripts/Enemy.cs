@@ -6,7 +6,6 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private float gap = 5.0f;
-    [SerializeField] private float fireRate = 5.0f;
     [SerializeField] private int point = 10;
 
     public GameObject gunPrefab;
@@ -49,7 +48,7 @@ public class Enemy : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(gunScript.fireRate * 2.5f);
+            yield return new WaitForSeconds(gunScript.fireRate * 3f);
             if (isAlive)
             {
                 gunScript.Fire("enemy");

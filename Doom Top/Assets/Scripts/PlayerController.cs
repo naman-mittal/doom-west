@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     Vector3 gunPosition = new Vector3(0, 1.5f, 1);
     public Gun gun;
 
-    public AudioSource audioSource;
+    private AudioSource audioSource;
     private AudioClip fireSound;
 
     private float horizontalInput;

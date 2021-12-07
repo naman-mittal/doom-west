@@ -658,12 +658,11 @@ MonoBehaviour:
   gunPrefab: {fileID: 0}
   powerIndicator: {fileID: 5588315997337981360}
   gun: {fileID: 0}
-  audioSource: {fileID: 0}
   speed: 8
   rotateSpeed: 3
   isAlive: 1
   lives: 3
-  canDie: 0
+  canDie: 1
   scatterShot: 0
   hasPowerup: 0
 --- !u!82 &7644768202702668189

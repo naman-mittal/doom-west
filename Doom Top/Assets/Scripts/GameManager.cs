@@ -16,8 +16,8 @@ public class GameManager : MonoBehaviour
     private float xSpawnRange = 10;
     private float zPosSpawnRange = 12;
     private float zNegSpawnRange = 20;
-    private float spawnDelay = 8;
-    private float spawnInterval = 2;
+    private float spawnDelay = 2;
+    private float spawnInterval = 5;
 
     private int wave = 1;
     private int enemyCount;
@@ -95,14 +95,14 @@ public class GameManager : MonoBehaviour
 
     IEnumerator SpawnEnemy(int wave)
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(spawnDelay);
         for(int i = 0; i < wave && !isGameOver; i++)
         {
             int index = i % enemies.Count;
 
            GameObject enemy = Instantiate(enemies[index], RandomPosition(enemies[index].transform.position.y), enemies[index].transform.rotation);
             enemy.transform.SetParent(enemyParent.transform);
-            yield return new WaitForSeconds(spawnDelay);
+            yield return new WaitForSeconds(spawnInterval);
         }
         
     }
