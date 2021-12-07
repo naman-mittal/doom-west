@@ -16,7 +16,7 @@ public class Pistol : Gun
             b.firedBy = firedBy;
             Destroy(bg, fireDistance / b.speed);
 
-            Invoke("CanFireAgain", fireRate);
+            Invoke("CanFireAgain", poweredUp ? 0 : fireRate);
         }
         
     }

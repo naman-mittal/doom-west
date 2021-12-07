@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI WaveText;
     public TextMeshProUGUI finalScoreText;
     public TextMeshProUGUI highScoreText;
+    public TextMeshProUGUI powerupText;
 
     public int score;
     public int lives;
@@ -190,6 +191,18 @@ public class GameManager : MonoBehaviour
         }
 
         highScoreText.text = "HighScore: " + highscore;
+    }
+
+    public void setPowerupText(string text)
+    {
+        powerupText.enabled = true;
+        powerupText.text = text;
+        Invoke("ResetPowerupText", 2);
+    }
+
+    private void ResetPowerupText()
+    {
+        powerupText.enabled = false;
     }
 
 }

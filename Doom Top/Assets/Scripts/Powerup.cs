@@ -13,10 +13,11 @@ public class Powerup : MonoBehaviour
 {
     public PowerupType powerupType;
     public float duration = 4;
+    private GameManager gm;
     // Start is called before the first frame update
     void Start()
     {
-        
+        gm = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -27,7 +28,7 @@ public class Powerup : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player") && !other.gameObject.GetComponent<PlayerController>().hasPowerup)
+        if (other.gameObject.CompareTag("Player"))
         {
             Pickup(other.gameObject);
         }
@@ -36,6 +37,11 @@ public class Powerup : MonoBehaviour
     void Pickup(GameObject player)
     {
         PlayerController playerScr = player.GetComponent<PlayerController>();
+
+        if(playerScr.hasPowerup || !playerScr.isAlive)
+        {
+            return;
+        }
         GetComponent<MeshRenderer>().enabled = false;
         GetComponent<Collider>().enabled = false;
 
@@ -43,16 +49,19 @@ public class Powerup : MonoBehaviour
         {
             case PowerupType.InvinciblePowerup:
                 {
+                    gm.setPowerupText("Invincible");
                     StartCoroutine(ProvideInvincibility(playerScr));
                 }
                 break;
             case PowerupType.SpeedBoostPowerup:
                 {
+                    gm.setPowerupText("Speed Boost");
                     StartCoroutine(ProvideSpeedBoost(playerScr));
                 }
                 break;
             case PowerupType.ScatterShotPowerup:
                 {
+                    gm.setPowerupText("Rapid Fire");
                     StartCoroutine(ProvideScatterShot(playerScr));
                 }
                 break;
