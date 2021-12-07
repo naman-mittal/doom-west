@@ -9,7 +9,9 @@ public class PlayerController : MonoBehaviour
     Vector3 gunPosition = new Vector3(0, 1.5f, 1);
     public Gun gun;
 
-    
+    public AudioSource audioSource;
+    private AudioClip fireSound;
+
     private float horizontalInput;
     private float verticalInput;
 
@@ -32,6 +34,9 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        audioSource = GetComponent<AudioSource>();
+
         if(MainManager.Manager != null)
         {
             gunPrefab = MainManager.Manager.selectedGun;
@@ -50,6 +55,8 @@ public class PlayerController : MonoBehaviour
 
         gun = gunGO.GetComponent<Gun>();
 
+        fireSound = gun.fireSound;
+
     }
 
     private void Update()
@@ -57,11 +64,10 @@ public class PlayerController : MonoBehaviour
 
         if (!isAlive) return;
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && gun.canFire)
         {
-            //FireBullet();
-            gun.Fire("player");
-            playerAnim.SetBool("Shoot_b", true);
+            Fire();
+           
         }
         else if(Input.GetMouseButtonUp(0))
         {
@@ -126,6 +132,12 @@ public class PlayerController : MonoBehaviour
         Invoke("Reset", 2);
     }
 
+    void Fire()
+    {
+        gun.Fire("player");
+        playerAnim.SetBool("Shoot_b", true);
+        audioSource.PlayOneShot(fireSound,0.3f);
+    }
     private void Reset()
     {
         GameObject.Find("Game Manager").GetComponent<GameManager>().playerKilled();

@@ -128,4 +128,4 @@ MonoBehaviour:
   bulletCount: 1
   fireRate: 1
   fireDistance: 5
-  poweredUp: 0
+  fireSound: {fileID: 8300000, guid: d3247579c549643a5b3a95f9224eaf3c, type: 3}

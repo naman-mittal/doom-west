@@ -9,10 +9,16 @@ public abstract class Gun : MonoBehaviour
     public int bulletCount = 1;
     public float fireRate = 1;
     public float fireDistance = 1;
+    public AudioClip fireSound;
 
-    protected bool canFire = true;
+    public bool canFire = true;
 
-    [SerializeField] protected bool poweredUp = false;
+    protected bool poweredUp = false;
+
+    void Start()
+    {
+
+    }
 
     public abstract void Fire(string firedBy);
 

@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2);
         for(int i = 0; i < wave && !isGameOver; i++)
         {
-            int index = Random.Range(0, enemies.Count);
+            int index = i % enemies.Count;
 
            GameObject enemy = Instantiate(enemies[index], RandomPosition(enemies[index].transform.position.y), enemies[index].transform.rotation);
             enemy.transform.SetParent(enemyParent.transform);

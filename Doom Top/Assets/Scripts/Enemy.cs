@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour
     private PlayerController player = null;
     private Rigidbody enemyRb;
     private Animator enemyAnim;
+    private AudioSource enemyAudioSource;
 
     private bool isAlive = true;
     // Start is called before the first frame update
@@ -24,6 +25,7 @@ public class Enemy : MonoBehaviour
        player = GameObject.Find("Player").GetComponent<PlayerController>();
         enemyRb = GetComponent<Rigidbody>()                 ;
         enemyAnim = GetComponent<Animator>();
+        enemyAudioSource = GetComponent<AudioSource>();
 
         enemyAnim.SetInteger("WeaponType_int", 1);
 
@@ -47,10 +49,11 @@ public class Enemy : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(gunScript.fireRate * 2.5f);
             if (isAlive)
             {
                 gunScript.Fire("enemy");
+                enemyAudioSource.PlayOneShot(gunScript.fireSound, 0.2f);
             }
             
         }
@@ -58,24 +61,24 @@ public class Enemy : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (player == null) return;
+        if (player == null || !isAlive || !player.isAlive) return;
+        
+        FollowPlayer();
+    }
 
-        if (!isAlive || !player.isAlive)
-        {
-            return;
-        }
+    void FollowPlayer()
+    {
         transform.LookAt(player.transform);
-       
-        if (Vector3.Distance(transform.position,player.transform.position) > gap)
+
+        if (Vector3.Distance(transform.position, player.transform.position) > gap)
         {
             enemyAnim.SetFloat("Speed_f", 0.3f);
-            enemyRb.MovePosition(transform.position + (transform.forward * speed * Time.deltaTime) );
+            enemyRb.MovePosition(transform.position + (transform.forward * speed * Time.deltaTime));
         }
         else
         {
             enemyAnim.SetFloat("Speed_f", 0f);
         }
-        
     }
 
     private void OnTriggerEnter(Collider other)
