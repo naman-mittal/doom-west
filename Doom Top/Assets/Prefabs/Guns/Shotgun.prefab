@@ -123,8 +123,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41a012c9550a59943a489e462271fde1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 5725212493599531128, guid: 6f735bef0bff4234b844aa5e4d4d2675, type: 3}
+  bullet: {fileID: 9162047389006064978, guid: 18d4831b417f140bf8b372c93d45cd40, type: 3}
   firePosition: {fileID: 6398664592153711754}
   bulletCount: 1
   fireRate: 1
   fireDistance: 5
+  poweredUp: 0

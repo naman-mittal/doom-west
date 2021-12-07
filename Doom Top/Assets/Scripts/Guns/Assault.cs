@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Assault : Gun
 {
-    private bool canFire = true;
+    
     private int rounds = 3;
     // Start is called before the first frame update
     public override void Fire(string firedBy)
@@ -20,8 +20,8 @@ public class Assault : Gun
             {
                 StartCoroutine(FireNRounds(firedBy, rounds));
             }
-            
-            StartCoroutine(Fired());
+
+            Invoke("CanFireAgain", fireRate);
         }
         
     }
@@ -38,10 +38,5 @@ public class Assault : Gun
         }
     }
 
-    private IEnumerator Fired()
-    {
-        yield return new WaitForSeconds(fireRate);
-        canFire = true;
-
-    }
+   
 }

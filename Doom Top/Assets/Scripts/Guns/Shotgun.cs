@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Shotgun : Gun
 {
-    private bool canFire = true;
     private int rounds = 3;
 
     public override void Fire(string firedBy)
@@ -22,7 +21,7 @@ public class Shotgun : Gun
                 FireInFanShape(firedBy, rounds);
             }
 
-            StartCoroutine(Fired());
+            Invoke("CanFireAgain", fireRate);
         }
         
     }
@@ -47,13 +46,6 @@ public class Shotgun : Gun
             Destroy(bg, fireDistance / b.speed);
             yRot += angleDifference;
         }
-    }
-
-    private IEnumerator Fired()
-    {
-        yield return new WaitForSeconds(fireRate);
-        canFire = true;
-
     }
 
 }

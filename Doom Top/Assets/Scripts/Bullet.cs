@@ -5,13 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float speed = 30.0f;
-    private Rigidbody rb;
     public string firedBy;
-    // Start is called before the first frame update
-    void Start()
-    {
-        rb = GetComponent<Rigidbody>();
-    }
 
     // Update is called once per frame
     void Update()
