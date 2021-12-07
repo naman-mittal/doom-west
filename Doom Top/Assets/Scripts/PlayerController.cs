@@ -128,6 +128,7 @@ public class PlayerController : MonoBehaviour
 
         playerAnim.SetInteger("DeathType_int", Random.Range(1, 3));
 
+
         //Destroy(gameObject, 2);
         Invoke("Reset", 2);
     }
@@ -143,6 +144,8 @@ public class PlayerController : MonoBehaviour
         GameObject.Find("Game Manager").GetComponent<GameManager>().playerKilled();
 
         isAlive = true;
+        hasPowerup = false;
+        powerIndicator.SetActive(false);
 
         transform.position = startPos;
         transform.rotation = startRot;

@@ -163,6 +163,7 @@ public class GameManager : MonoBehaviour
     {
         StopAllCoroutines();
         Destroy(enemyParent);
+        Destroy(powerupParent);
         enemyParent = new GameObject();
         enemyParent.name = "Enemy Parent";
         powerupParent = new GameObject();
