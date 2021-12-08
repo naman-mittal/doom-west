@@ -125,7 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 9162047389006064978, guid: 18d4831b417f140bf8b372c93d45cd40, type: 3}
   firePosition: {fileID: 6398664592153711754}
-  bulletCount: 1
   fireRate: 1
-  fireDistance: 5
+  fireDistance: 8
   fireSound: {fileID: 8300000, guid: d3247579c549643a5b3a95f9224eaf3c, type: 3}
+  canFire: 1

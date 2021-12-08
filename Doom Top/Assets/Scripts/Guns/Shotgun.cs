@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// INHERITANCE
 public class Shotgun : Gun
 {
     private int rounds = 3;
 
+    // POLYMORPHISM
     public override void Fire(string firedBy)
     {
         if (canFire)

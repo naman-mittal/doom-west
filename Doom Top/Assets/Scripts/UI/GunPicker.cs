@@ -11,21 +11,22 @@ public class GunPicker : MonoBehaviour
     public TextMeshProUGUI message;
     public Button startButton;
 
-    private int assaultUnlockPoint = 100;
-    private int shotgunUnlockPoint = 150;
+    private int assaultUnlockPoint = 150;
+    private int shotgunUnlockPoint = 100;
 
     int selectedIndex = 0;
     void Start()
     {
-        GameObject gun = guns[selectedIndex];
+        /*GameObject gun = guns[selectedIndex];
         MainManager.Manager.selectedGun = gun;
         transform.Find("Gun").Find("name").GetComponent<TextMeshProUGUI>().text = gun.name;
         Transform child = transform.Find("Gun").Find("GunParent").GetChild(0);
         GameObject go = Instantiate(gun, child.transform.position, child.transform.rotation);
         go.layer = 5;
+        go.transform.localScale = Vector3.one;
         go.transform.SetParent(transform.Find("Gun").Find("GunParent"));
-        Destroy(child.gameObject);
-
+        Destroy(child.gameObject);*/
+        changeGun(selectedIndex);
     }
 
     // Update is called once per frame
@@ -71,6 +72,10 @@ public class GunPicker : MonoBehaviour
         Transform child = transform.Find("Gun").Find("GunParent").GetChild(0);
         GameObject go = Instantiate(gun, child.transform.position,child.transform.rotation);
         go.layer = 5;
+        if (index != 0)
+        {
+            go.transform.localScale = new Vector3(0.6f,0.6f,0.6f);
+        }
         go.transform.SetParent(transform.Find("Gun").Find("GunParent"));
         Destroy(child.gameObject);
     }

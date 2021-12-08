@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// INHERITANCE
 public class Assault : Gun
 {
     
     private int rounds = 3;
-    // Start is called before the first frame update
+    
+    // POLYMORPHISM
     public override void Fire(string firedBy)
     {
         if (canFire)

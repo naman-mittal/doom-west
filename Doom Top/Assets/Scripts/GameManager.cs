@@ -9,13 +9,13 @@ public class GameManager : MonoBehaviour
     public GameObject playerPrefab;
     public List<GameObject> enemies;
     public List<GameObject> powerups;
-   // public GameObject titleScreen;
+ 
     public GameObject statsScreen;
     public GameObject gameOverScreen;
 
     private float xSpawnRange = 10;
     private float zPosSpawnRange = 12;
-    private float zNegSpawnRange = 20;
+    private float zNegSpawnRange = -20;
     private float spawnDelay = 2;
     private float spawnInterval = 5;
 
@@ -40,19 +40,10 @@ public class GameManager : MonoBehaviour
     private GameObject enemyParent;
     private GameObject powerupParent;
 
-
-    public void StartGame()
-    {
-        
-
-
-    }
-
     public void RestartGame()
     {
         gameOverScreen.SetActive(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        //titleScreen.SetActive(true);
 
     }
 
@@ -83,17 +74,11 @@ public class GameManager : MonoBehaviour
         WaveText.text = "Wave: " + wave;
         enemiesLeftText.text = "Enemies Left: " + wave;
         enemyCount = wave;
-        StartCoroutine(SpawnEnemy(wave));
+        StartCoroutine(SpawnEnemyWave(wave));
         SpawnPowerup();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-          
-    }
-
-    IEnumerator SpawnEnemy(int wave)
+    IEnumerator SpawnEnemyWave(int wave) // ABSTRACTION
     {
         yield return new WaitForSeconds(spawnDelay);
         for(int i = 0; i < wave && !isGameOver; i++)
@@ -107,7 +92,7 @@ public class GameManager : MonoBehaviour
         
     }
 
-    void SpawnPowerup()
+    void SpawnPowerup() // ABSTRACTION
     {
         
             int index = Random.Range(0, powerups.Count);
@@ -120,10 +105,10 @@ public class GameManager : MonoBehaviour
 
     public Vector3 RandomPosition(float y)
     {
-        return new Vector3(Random.Range(-xSpawnRange,xSpawnRange),y, Random.Range(-zNegSpawnRange, zPosSpawnRange));
+        return new Vector3(Random.Range(-xSpawnRange,xSpawnRange),y, Random.Range(zNegSpawnRange, zPosSpawnRange));
     }
 
-    public void enemyKilled(int point)
+    public void enemyKilled(int point) // ABSTRACTION
     {
         score += point;
         scoreText.text = "Score: " + score;
@@ -132,7 +117,7 @@ public class GameManager : MonoBehaviour
         if (enemyCount == 0)
         {
             wave++;
-            StartCoroutine(SpawnEnemy(wave));
+            StartCoroutine(SpawnEnemyWave(wave));
             SpawnPowerup();
            
             enemyCount = wave;
@@ -141,7 +126,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void playerKilled()
+    public void playerKilled() // ABSTRACTION
     {
         lives--;
         livesText.text = "Lives: " + lives;
@@ -170,7 +155,7 @@ public class GameManager : MonoBehaviour
         powerupParent.name = "Powerup Parent";
         enemyCount = wave;
         enemiesLeftText.text = "Enemies Left: " + enemyCount;
-        StartCoroutine(SpawnEnemy(wave));
+        StartCoroutine(SpawnEnemyWave(wave));
     }
 
     void GameOver()
