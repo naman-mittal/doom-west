@@ -77,33 +77,32 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!isAlive) return;
-
         MovePlayer();
-
-       
-      
     }
 
     private void MovePlayer()
     {
-        horizontalInput = Input.GetAxis("Horizontal");
-        verticalInput = Input.GetAxis("Vertical");
-
-        yRot += Input.GetAxis("Horizontal") * rotateSpeed;
-
-        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, yRot, transform.localEulerAngles.z);
-
-        playerRb.MovePosition(transform.position + (transform.forward * speed * verticalInput * Time.deltaTime));
-
-        if (verticalInput == 0)
+        if (isAlive)
         {
-            playerAnim.SetFloat("Speed_f", 0);
+            horizontalInput = Input.GetAxis("Horizontal");
+            verticalInput = Input.GetAxis("Vertical");
+
+            yRot += Input.GetAxis("Horizontal") * rotateSpeed;
+
+            transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, yRot, transform.localEulerAngles.z);
+
+            playerRb.MovePosition(transform.position + (transform.forward * speed * verticalInput * Time.deltaTime));
+
+            if (verticalInput == 0)
+            {
+                playerAnim.SetFloat("Speed_f", 0);
+            }
+            else
+            {
+                playerAnim.SetFloat("Speed_f", 0.3f);
+            }
         }
-        else
-        {
-            playerAnim.SetFloat("Speed_f", 0.3f);
-        }
+        
     }
 
     private void OnTriggerEnter(Collider other)
