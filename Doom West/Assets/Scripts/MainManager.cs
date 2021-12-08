@@ -5,11 +5,32 @@ using System.IO;
 
 public class MainManager : MonoBehaviour
 {
-    public static MainManager Manager { get; private set; }
+    public static MainManager Manager { get; private set; } // ENCAPSULATION
 
     public GameObject selectedGun;
 
-    public int highscore;
+    // ENCAPSULATION
+    public int highscore
+    {
+        get
+        {
+            return myHighscore;
+        }
+        set
+        {
+            if(value >= 0)
+            {
+                myHighscore = value;
+            }
+            else
+            {
+                myHighscore = 0;
+                Debug.Log("negative value is not allowed");
+            }
+        }
+    }
+
+    private int myHighscore;
 
     private void Awake()
     {
@@ -25,17 +46,6 @@ public class MainManager : MonoBehaviour
 
     }
 
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     [System.Serializable]
     public class SaveData
     {
@@ -47,7 +57,7 @@ public class MainManager : MonoBehaviour
         string path = Application.persistentDataPath + "/saveFile.json";
 
         SaveData saveData = new SaveData();
-        saveData.highscore = highscore;
+        saveData.highscore = myHighscore;
 
         string json = JsonUtility.ToJson(saveData);
 

@@ -30,17 +30,16 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI highScoreText;
     public TextMeshProUGUI powerupText;
 
-    public int score;
-    public int lives;
-    public int highscore;
+    private int score;
+    private int lives;
+    private int highscore;
 
     private bool isGameOver;
 
-    private Vector3 startPos;
     private GameObject enemyParent;
     private GameObject powerupParent;
 
-    public void RestartGame()
+    public void RestartGame() // ABSTRACTION
     {
         gameOverScreen.SetActive(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
